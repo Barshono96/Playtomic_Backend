@@ -36,6 +36,5 @@ const User = sequelize.define('User', {
   timestamps: false, 
 });
 
-// User.hasOne(Club, { foreignKey: 'userid', as: 'club' });
 
 export default User;

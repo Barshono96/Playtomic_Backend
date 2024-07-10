@@ -2,7 +2,7 @@ import { Request, Response } from "express";
 import { Error } from "sequelize";
 import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
-
+// import User from '../models/userModel';
 const { User } = require("../models");
 // import { User } from "../models";
 
@@ -28,6 +28,7 @@ export async function login(req: Request, res: Response): Promise<void> {
     if (!user) {
        res.status(404).json({ error: "User not found" });
     }
+    
 
     const isPasswordValid = await bcrypt.compare(password, user.password);
 
@@ -42,3 +43,5 @@ export async function login(req: Request, res: Response): Promise<void> {
     res.status(500).json({ error: (error as Error).message });
   }
 }
+
+
