@@ -13,11 +13,9 @@ export const createClub = async (req: Request, res: Response) => {
       return res.status(404).json({ message: 'User not found' });
     }
 
-    const existingClub = await Club.findOne({ where: { userid: userId } });
+    const existingClub = await Club.findAll({ where: { userid: userId } });
 
-    if (existingClub) {
-      return res.status(400).json({ message: 'User already has a club' });
-    }
+
 
     const club = await Club.create({
       userid: userId,
@@ -30,5 +28,27 @@ export const createClub = async (req: Request, res: Response) => {
     res.status(201).json(club);
   } catch (error) {
     res.status(500).json({ message: 'Error creating club', error });
+  }
+};
+
+export const getClub = async (req: Request, res: Response) => {
+  try {
+    const userId = req.params.userId;
+
+    const user = await User.findByPk(userId);
+
+    if (!user) {
+      return res.status(404).json({ message: 'User not found' });
+    }
+
+    const club = await Club.findAll({ where: { userid: userId } });
+
+    if (!club) {
+      return res.status(404).json({ message: 'Club not found' });
+    }
+
+    res.status(200).json(club);
+  } catch (error) {
+    res.status(500).json({ message: 'Error retrieving club', error });
   }
 };
