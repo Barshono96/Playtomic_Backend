@@ -1,10 +1,8 @@
-
 import sequelize from '../config/db';
 import User from './userModel';
 import Club from './clubModel';
 import Court from './courtModel';
 import Booking from './bookingModel';
-
 
 User.hasOne(Club, { foreignKey: 'userid', as: 'club' });
 Club.belongsTo(User, { foreignKey: 'userid', as: 'user' });
@@ -12,8 +10,14 @@ Club.belongsTo(User, { foreignKey: 'userid', as: 'user' });
 Club.hasMany(Court, { foreignKey: 'clubId', as: 'courts' });
 Court.belongsTo(Club, { foreignKey: 'clubId', as: 'clubs' });
 
-// Booking.hasOne(Court, { foreignKey: 'courtid', as: 'courts'});
-// Court.belongsTo(Booking,{ foreignKey: 'courtid', as: 'courts'})
+Court.hasMany(Booking, { foreignKey: 'courtid', as: 'bookings' });
+Booking.belongsTo(Court, { foreignKey: 'courtid', as: 'court' });
+
+User.hasMany(Booking, { foreignKey: 'userid', as: 'bookings' });
+Booking.belongsTo(User, { foreignKey: 'userid', as: 'user' });
+
+Club.hasMany(Booking, { foreignKey: 'clubid', as: 'bookings' });
+Booking.belongsTo(Club, { foreignKey: 'clubid', as: 'club' });
 
 const initializeDatabase = async (): Promise<void> => {
   try {

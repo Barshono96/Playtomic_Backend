@@ -14,6 +14,10 @@ const Booking = sequelize.define(
       type: DataTypes.INTEGER,
       allowNull: false,
     },
+    clubid: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+    },
     courtid: {
       type: DataTypes.INTEGER,
       allowNull: false,
@@ -23,6 +27,10 @@ const Booking = sequelize.define(
       type: DataTypes.DATE, // Time with date
       allowNull: false,
     },
+    slot:{
+      type: DataTypes.INTEGER,
+      allowNull: false,
+    }
   },
   {
     tableName: "bookings",
