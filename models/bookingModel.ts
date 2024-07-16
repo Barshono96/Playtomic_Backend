@@ -1,6 +1,8 @@
 import { DataTypes } from "sequelize";
 import sequelize from "../config/db";
+import User from "./userModel";
 import Club from "./clubModel";
+import Court from "./courtModel";
 
 const Booking = sequelize.define(
   "Booking",
@@ -37,5 +39,9 @@ const Booking = sequelize.define(
     timestamps: false,
   }
 );
+
+// Booking.belongsTo(User, { foreignKey: 'userid', as: 'user' });
+// Booking.belongsTo(Club, { foreignKey: 'clubid', as: 'club' });
+// Booking.belongsTo(Court, { foreignKey: 'courtid', as: 'court' });
 
 export default Booking;

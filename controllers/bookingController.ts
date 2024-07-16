@@ -6,28 +6,28 @@ import Court from '../models/courtModel';
 
 export const createBooking = async (req: Request, res: Response) => {
   try {
-    const userId = req.params.userId;
-    const {  clubid, courtid, time, slot } = req.body;
+    const { userId, clubId, courtId } = req.params;
+    const {time, slot } = req.body;
 
     const user = await User.findByPk(userId);
     if (!user) {
       return res.status(404).json({ message: 'User not found' });
     }
 
-    const club = await Club.findByPk(clubid);
+    const club = await Club.findByPk(clubId);
     if (!club) {
       return res.status(404).json({ message: 'Club not found' });
     }
 
-    const court = await Court.findByPk(courtid);
+    const court = await Court.findByPk(courtId);
     if (!court) {
       return res.status(404).json({ message: 'Court not found' });
     }
 
     const booking = await Booking.create({
       userid: userId,
-      clubid,
-      courtid,
+      clubid: clubId,
+      courtid: courtId,
       time,
       slot,
     });
@@ -41,9 +41,9 @@ export const createBooking = async (req: Request, res: Response) => {
 
 export const getBookings = async (req: Request, res: Response) => {
   try {
-    const { userid } = req.params;
+    const { userId } = req.params;
 
-    const bookings = await Booking.findAll({ where: { userid } });
+    const bookings = await Booking.findAll({ where: { userId } });
 
     res.status(200).json(bookings);
   } catch (error) {
