@@ -22,23 +22,63 @@ export async function signup(req: Request, res: Response): Promise<void> {
 
 export async function login(req: Request, res: Response): Promise<void> {
   try {
+    // const { email, password }: { email: string; password: string } = req.body;
+    // const user = await User.findOne({ where: { email } });
+
+    // if (!user) {
+    //    return res.status(404).json({ error: "User not found" });
+    // }
+    
+
+    // const isPasswordValid = await bcrypt.compare(password, user.password);
+
+    // if (!isPasswordValid) {
+    //    return res.status(401).json({ error: "Invalid password" });
+    // }
+
+    // const token = jwt.sign({ id: user.id, email: user.email }, SECRET_KEY, { expiresIn: "1h" });
+    // const sendUserObject = {
+    //   userId:user.id,
+    //   email:user.email
+    // }
+    // return res.status(200).json({ message: "Login successful", token,sendUserObject });
+
+
+
+
+
+
+
     const { email, password }: { email: string; password: string } = req.body;
     const user = await User.findOne({ where: { email } });
 
-    if (!user) {
-       res.status(404).json({ error: "User not found" });
+    if (user) {
+      const isPasswordValid = await bcrypt.compare(password, user.password);
+      if (isPasswordValid) {
+        const token = jwt.sign({ id: user.id, email: user.email }, SECRET_KEY, { expiresIn: "1h" });
+        const sendUserObject = {
+          userId:user.id,
+          email:user.email
+        }
+      res.status(200).json({ message: "Login successful", token,sendUserObject });
+      }
+      else{
+       res.status(401).json({ error: "Invalid password" });
+
+      }
+    }
+    else{
+      res.status(404).json({ error: "User not Found! Please SignUp" });
+
     }
     
 
-    const isPasswordValid = await bcrypt.compare(password, user.password);
 
-    if (!isPasswordValid) {
-       res.status(401).json({ error: "Invalid password" });
-    }
 
-    const token = jwt.sign({ id: user.id, email: user.email }, SECRET_KEY, { expiresIn: "1h" });
+   
 
-    res.status(200).json({ message: "Login successful", token });
+
+
   } catch (error) {
     res.status(500).json({ error: (error as Error).message });
   }
