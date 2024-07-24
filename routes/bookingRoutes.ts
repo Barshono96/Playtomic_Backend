@@ -1,9 +1,11 @@
-import { Router } from 'express';
+
+
+import express from 'express';
 import { createBooking, getBookings } from '../controllers/bookingController';
 
-const router = Router();
+const router = express.Router();
 
 router.post('/bookings/:userId/:clubId/:courtId', createBooking);
-router.get('/bookings/:userid', getBookings);
+router.get('/bookings/:userId/:clubId/:courtId', getBookings);
 
 export default router;

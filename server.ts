@@ -20,6 +20,7 @@ app.use('/api', authRoutes);
 app.use('/api', clubRoutes);
 app.use('/api', courtRoutes);
 app.use('/api', bookingRoutes);
+// app.use("/api", userRoutes)
 
 
 app.listen(port, () => {

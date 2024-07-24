@@ -22,33 +22,7 @@ export async function signup(req: Request, res: Response): Promise<void> {
 
 export async function login(req: Request, res: Response): Promise<void> {
   try {
-    // const { email, password }: { email: string; password: string } = req.body;
-    // const user = await User.findOne({ where: { email } });
-
-    // if (!user) {
-    //    return res.status(404).json({ error: "User not found" });
-    // }
     
-
-    // const isPasswordValid = await bcrypt.compare(password, user.password);
-
-    // if (!isPasswordValid) {
-    //    return res.status(401).json({ error: "Invalid password" });
-    // }
-
-    // const token = jwt.sign({ id: user.id, email: user.email }, SECRET_KEY, { expiresIn: "1h" });
-    // const sendUserObject = {
-    //   userId:user.id,
-    //   email:user.email
-    // }
-    // return res.status(200).json({ message: "Login successful", token,sendUserObject });
-
-
-
-
-
-
-
     const { email, password }: { email: string; password: string } = req.body;
     const user = await User.findOne({ where: { email } });
 
@@ -58,7 +32,8 @@ export async function login(req: Request, res: Response): Promise<void> {
         const token = jwt.sign({ id: user.id, email: user.email }, SECRET_KEY, { expiresIn: "1h" });
         const sendUserObject = {
           userId:user.id,
-          email:user.email
+          email:user.email,
+          userType: user.type
         }
       res.status(200).json({ message: "Login successful", token,sendUserObject });
       }
