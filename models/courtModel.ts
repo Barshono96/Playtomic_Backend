@@ -28,6 +28,10 @@ const Court = sequelize.define(
       allowNull: false,
       // Example: [{"duration": 60, "price": 20}, {"duration": 90, "price": 30}]
     },
+    images: {
+      type: DataTypes.ARRAY(DataTypes.STRING),
+      allowNull: false,
+    },
 
   },
   {
