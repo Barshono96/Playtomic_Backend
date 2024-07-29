@@ -1,9 +1,11 @@
 import { Router } from 'express';
-import { createClub, getClub } from '../controllers/clubController';
+import { createClub, getClub, getAllClubs  } from '../controllers/clubController';
 
 const router = Router();
 
-router.get('/clubs/:userId', getClub);
-router.post('/clubs/:userId', createClub);
+// router.get('/users/:userId/clubs', getClub);
+router.get('/clubs', getAllClubs); // New route to get all clubs
+router.post('/users/:userId/clubs', createClub);
+
 
 export default router;

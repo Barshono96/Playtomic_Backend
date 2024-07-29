@@ -33,6 +33,10 @@ const Club = sequelize.define(
       type: DataTypes.STRING,
       allowNull: false,
     },
+    images: {
+      type: DataTypes.ARRAY(DataTypes.STRING),
+      allowNull: false,
+    },
 
   },
   {
@@ -41,7 +45,6 @@ const Club = sequelize.define(
   }
 );
 
-// Club.belongsTo(User, { foreignKey: 'userid', as: 'user' });
 
 
 export default Club;
