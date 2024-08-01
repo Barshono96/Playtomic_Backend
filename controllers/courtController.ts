@@ -45,3 +45,14 @@ export const getCourts = async (req: Request, res: Response) => {
     res.status(500).json({ message: "Error retrieving courts", error });
   }
 };
+
+
+export const getAllCourts = async (req: Request, res: Response) => {
+  try {
+    const courts = await Court.findAll();
+    res.status(200).json(courts);
+  } catch (error) {
+    console.error("Error retrieving all courts:", error);
+    res.status(500).json({ message: "Error retrieving all courts", error });
+  }
+};
