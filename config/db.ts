@@ -6,7 +6,6 @@ import dotenv from 'dotenv';
 dotenv.config();
 
 const sequelize = new Sequelize(
-  // process.env.DB_NAME || 'playtomic',
   process.env.DB_NAME || 'playtomic_test',
   process.env.DB_USERNAME || 'postgres',
   process.env.DB_PASSWORD || 'projectcode',
